@@ -1,4 +1,4 @@
-package be.vergauwen.simon.konductor.anko
+package be.vergauwen.simon.konductor.core.anko
 
 import android.content.Intent
 import android.graphics.drawable.Drawable

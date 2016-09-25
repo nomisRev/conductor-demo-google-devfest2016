@@ -5,13 +5,13 @@ import android.support.design.widget.AppBarLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.ViewGroup
-import be.vergauwen.simon.konductor.anko.actionBarSize
-import be.vergauwen.simon.konductor.anko.changeHandlerFrameLayout
+import be.vergauwen.simon.konductor.core.anko.actionBarSize
+import be.vergauwen.simon.konductor.core.anko.changeHandlerFrameLayout
+import be.vergauwen.simon.konductor.core.controllers.MasterDetailController
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.demo.ActionBarProvider
-import com.bluelinelabs.conductor.demo.controllers.HomeController
 import org.jetbrains.anko.UI
 import org.jetbrains.anko.appcompat.v7.toolbar
 import org.jetbrains.anko.design.appBarLayout
@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity(), ActionBarProvider {
 
         container?.let { router = Conductor.attachRouter(this, it, savedInstanceState) }
         if (router?.hasRootController() == false) {
-            router?.setRoot(RouterTransaction.with(HomeController()))
+            router?.setRoot(RouterTransaction.with(MasterDetailController()))
         }
     }
 
@@ -58,5 +58,4 @@ class MainActivity : AppCompatActivity(), ActionBarProvider {
             super.onBackPressed()
         }
     }
-
 }

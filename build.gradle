@@ -33,7 +33,7 @@ buildscript {
         unmock_version = "0.5.0"
         spek_version = "1.0.89"
         junit_platform_version = "1.0.0-M2"
-        powermock_version = "1.6.1"
+        powermock_version = "1.6.5"
 
         //KOTLIN
         kotlin_version = "1.0.4"

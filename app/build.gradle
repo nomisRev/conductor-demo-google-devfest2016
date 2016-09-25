@@ -14,7 +14,7 @@ android {
     buildToolsVersion versions.build_tools
 
     defaultConfig {
-        applicationId "com.bluelinelabs.conductor.demo"
+        applicationId "be.vergauwen.simon.konductor"
         minSdkVersion versions.min_sdk
         targetSdkVersion versions.target_sdk
 
