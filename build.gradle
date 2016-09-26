@@ -20,7 +20,7 @@ buildscript {
         rx_preferences_version = "1.0.2"
         realm_version = "1.1.1"
         calligraphy_version = "2.2.0"
-        conductor_version = "2.0.1"
+        conductor_version = "2.0.2"
 
         // TESTING
         junit_version = "4.12"

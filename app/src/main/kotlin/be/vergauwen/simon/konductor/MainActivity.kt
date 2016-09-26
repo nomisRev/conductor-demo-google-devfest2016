@@ -1,5 +1,6 @@
 package be.vergauwen.simon.konductor
 
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v7.app.AppCompatActivity
@@ -8,11 +9,11 @@ import android.view.ViewGroup
 import be.vergauwen.simon.konductor.core.ActionBarProvider
 import be.vergauwen.simon.konductor.core.anko.actionBarSize
 import be.vergauwen.simon.konductor.core.anko.changeHandlerFrameLayout
+import be.vergauwen.simon.konductor.core.anko.color
 import be.vergauwen.simon.konductor.core.controllers.MasterDetailController
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
-import org.jetbrains.anko.UI
 import org.jetbrains.anko.appcompat.v7.toolbar
 import org.jetbrains.anko.design.appBarLayout
 import org.jetbrains.anko.design.coordinatorLayout
@@ -28,20 +29,21 @@ class MainActivity : AppCompatActivity(), ActionBarProvider {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        UI {
-            coordinatorLayout {
-                fitsSystemWindows = true
-                appBarLayout {
-                    toolbar = toolbar {
+        coordinatorLayout {
+            fitsSystemWindows = true
+            appBarLayout {
+                toolbar = toolbar {
+                    popupTheme = R.style.AppTheme_PopupOverlay
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) elevation = 4f
+                    setTitleTextColor(color(android.R.color.white))
 
-                    }.lparams(width = matchParent, height = actionBarSize())
-                }.lparams(width = matchParent)
+                }.lparams(width = matchParent, height = actionBarSize())
+            }.lparams(width = matchParent)
 
-                container = changeHandlerFrameLayout {
+            container = changeHandlerFrameLayout {
 
-                }.lparams(width = matchParent, height = matchParent) {
-                    behavior = AppBarLayout.ScrollingViewBehavior()
-                }
+            }.lparams(width = matchParent, height = matchParent) {
+                behavior = AppBarLayout.ScrollingViewBehavior()
             }
         }
 

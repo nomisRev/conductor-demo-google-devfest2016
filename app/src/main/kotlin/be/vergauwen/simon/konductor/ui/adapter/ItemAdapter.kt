@@ -12,7 +12,7 @@ import be.vergauwen.simon.konductor.core.anko.setSelectableItemBackground
 import be.vergauwen.simon.konductor.core.model.Item
 import org.jetbrains.anko.*
 
-class ItemAdapter(private val items: MutableList<Item>) : RecyclerView.Adapter<ItemViewHolder>()  {
+class ItemAdapter(private val items : MutableList<Item> = mutableListOf<Item>()) : RecyclerView.Adapter<ItemViewHolder>() {
 
     ///////////////////
     // Adapter Impl
@@ -26,6 +26,11 @@ class ItemAdapter(private val items: MutableList<Item>) : RecyclerView.Adapter<I
     override fun getItemCount(): Int = items.size
 
     ///////////////////
+
+    fun addItem(item: Item) {
+        items.add(item)
+        notifyDataSetChanged()
+    }
 
     fun getItem(position: Int): Item = items[position]
 

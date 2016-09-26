@@ -9,7 +9,9 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import be.vergauwen.simon.konductor.core.RxDataRepo
 import be.vergauwen.simon.konductor.ui.adapter.ItemAdapter
-import org.jetbrains.anko.*
+import org.jetbrains.anko.UI
+import org.jetbrains.anko.linearLayout
+import org.jetbrains.anko.matchParent
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import timber.log.Timber
 
@@ -21,23 +23,36 @@ class MasterDetailController : BaseController() {
 
     private var recyclerView: RecyclerView? = null
     private var detailContainer: FrameLayout? = null
+    private var itemAdapter = ItemAdapter()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View =
-            activity.UI {
-                linearLayout {
-                    recyclerView = recyclerView {
-                        setHasFixedSize(true)
-                        layoutManager = LinearLayoutManager(context)
-                        RxDataRepo.getData().toList().subscribe { adapter = ItemAdapter(it) }
-                    }.lparams(width = dip(200), height = matchParent)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
 
-                    configuration(orientation = Orientation.LANDSCAPE) {
-                        detailContainer = frameLayout {
+        return activity.UI {
+            linearLayout {
+                recyclerView = recyclerView {
+                    setHasFixedSize(true)
+                    layoutManager = LinearLayoutManager(context)
+                    adapter = itemAdapter
+                }.lparams(width = matchParent, height = matchParent)
 
-                        }.lparams(width = matchParent, height = matchParent)
-                    }
-                }
-            }.view
+//                configuration(orientation = Orientation.LANDSCAPE) {
+//                    recyclerView.apply {
+//                        lparams(width = dip(200))
+//                    }
+//
+//                    detailContainer = frameLayout {
+//
+//                    }.lparams(width = matchParent, height = matchParent)
+//                }
+            }
+        }.view
+    }
+
+
+    override fun onAttach(view: View) {
+        super.onAttach(view)
+        RxDataRepo.getData().subscribe { itemAdapter.addItem(item = it) }
+    }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
