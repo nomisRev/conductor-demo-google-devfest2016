@@ -12,5 +12,8 @@ class URLItem(url: String) : Item {
     override val itemColorId: Int
         get() = R.color.url
 
+    override val drawableResId: Int
+        get() = R.drawable.ic_url
+
     override fun getIcon(context: Context): Drawable = ContextCompat.getDrawable(context, R.drawable.ic_url)
 }

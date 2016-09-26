@@ -6,5 +6,6 @@ import android.graphics.drawable.Drawable
 interface Item {
     var name : String
     val itemColorId : Int
+    val drawableResId: Int
     fun getIcon(context: Context) : Drawable
 }

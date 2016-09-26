@@ -12,5 +12,8 @@ class TwitterItem(twitter: String) : Item {
     override val itemColorId: Int
         get() = R.color.twitter
 
+    override val drawableResId: Int
+        get() = R.drawable.ic_twitter
+
     override fun getIcon(context: Context): Drawable = ContextCompat.getDrawable(context, R.drawable.ic_twitter)
 }

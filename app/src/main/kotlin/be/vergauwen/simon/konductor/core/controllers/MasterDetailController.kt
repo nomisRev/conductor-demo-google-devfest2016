@@ -1,17 +1,18 @@
 package be.vergauwen.simon.konductor.core.controllers
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.FrameLayout
 import be.vergauwen.simon.konductor.core.RxDataRepo
 import be.vergauwen.simon.konductor.ui.adapter.ItemAdapter
-import org.jetbrains.anko.UI
-import org.jetbrains.anko.linearLayout
-import org.jetbrains.anko.matchParent
+import be.vergauwen.simon.konductor.ui.widget.util.onItemClick
+import com.bluelinelabs.conductor.RouterTransaction
+import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
+import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 import timber.log.Timber
 
@@ -22,8 +23,9 @@ class MasterDetailController : BaseController() {
 
 
     private var recyclerView: RecyclerView? = null
-    private var detailContainer: FrameLayout? = null
+    private var detailContainer: ViewGroup? = null
     private var itemAdapter = ItemAdapter()
+    private var selectedIndex: Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
 
@@ -33,17 +35,19 @@ class MasterDetailController : BaseController() {
                     setHasFixedSize(true)
                     layoutManager = LinearLayoutManager(context)
                     adapter = itemAdapter
+                    onItemClick { view, index -> onRowSelected(index) }
                 }.lparams(width = matchParent, height = matchParent)
 
-//                configuration(orientation = Orientation.LANDSCAPE) {
-//                    recyclerView.apply {
-//                        lparams(width = dip(200))
-//                    }
-//
-//                    detailContainer = frameLayout {
-//
-//                    }.lparams(width = matchParent, height = matchParent)
-//                }
+                configuration(orientation = Orientation.LANDSCAPE) {
+                    recyclerView.apply {
+                        lparams(width = dip(200))
+                    }
+
+                    detailContainer = frameLayout {
+
+                    }.lparams(width = matchParent, height = matchParent)
+                    onRowSelected(selectedIndex)
+                }
             }
         }.view
     }
@@ -66,11 +70,15 @@ class MasterDetailController : BaseController() {
 
     //View item selected
     internal fun onRowSelected(index: Int) {
-//        selectedIndex = index
-//
-//        val model = MasterDetailListController.DetailItemModel.values()[index]
-//        val controller = ChildController(model.detail, model.backgroundColor, true)
+        selectedIndex = index
 
-//        router.pushController(RouterTransaction.with(controller).pushChangeHandler(HorizontalChangeHandler()).popChangeHandler(HorizontalChangeHandler()))
+        val model = itemAdapter.getItem(index)
+        val controller = DetailController(model.name, model.itemColorId, model.drawableResId)
+
+        if (activity.resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            detailContainer?.let { getChildRouter(it, null).setRoot(RouterTransaction.with(controller)) }
+        } else {
+            router.pushController(RouterTransaction.with(controller).pushChangeHandler(HorizontalChangeHandler()).popChangeHandler(HorizontalChangeHandler()))
+        }
     }
 }
