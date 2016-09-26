@@ -3,7 +3,7 @@ package be.vergauwen.simon.konductor.core.model
 import android.content.Context
 import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
-import com.bluelinelabs.conductor.demo.R
+import be.vergauwen.simon.konductor.R
 
 class PhoneItem(phone: String) : Item {
 

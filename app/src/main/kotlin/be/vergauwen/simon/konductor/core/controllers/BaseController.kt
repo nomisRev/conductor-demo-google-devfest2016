@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.view.View
 import be.vergauwen.simon.konductor.KonductorApp
+import be.vergauwen.simon.konductor.core.ActionBarProvider
 import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.ControllerChangeType
-import com.bluelinelabs.conductor.demo.ActionBarProvider
 import com.bluelinelabs.conductor.rxlifecycle.RxController
 
 abstract class BaseController @JvmOverloads constructor(args: Bundle? = null) : RxController(args) {

@@ -7,13 +7,18 @@ import android.support.annotation.DrawableRes
 import android.support.v4.content.ContextCompat
 import android.util.TypedValue
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewManager
+import be.vergauwen.simon.konductor.R
+import be.vergauwen.simon.konductor.ui.widget.ItemIconView
 import com.bluelinelabs.conductor.ChangeHandlerFrameLayout
-import com.bluelinelabs.conductor.demo.R
 import org.jetbrains.anko.custom.ankoView
 
 fun ViewManager.changeHandlerFrameLayout(theme: Int = 0) = changeHandlerFrameLayout(theme) {}
 inline fun ViewManager.changeHandlerFrameLayout(theme: Int = 0, init: ChangeHandlerFrameLayout.() -> Unit) = ankoView(::ChangeHandlerFrameLayout, theme, init)
+
+fun ViewManager.itemIconView(theme: Int = 0) = itemIconView(theme) {}
+inline fun ViewManager.itemIconView(theme: Int = 0, init: ItemIconView.() -> Unit) = ankoView({ ItemIconView(it) }, theme, init)
 
 fun View.drawable(@DrawableRes resource: Int) : Drawable = ContextCompat.getDrawable(context, resource)
 
@@ -27,4 +32,19 @@ fun View.actionBarSize(): Int {
         return TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics)
     }
     return 0
+}
+
+
+fun ViewGroup.setSelectableItemBackground() {
+    val typedArray = context.obtainStyledAttributes(intArrayOf(R.attr.selectableItemBackground))
+    setBackgroundResource(typedArray.getResourceId(0, 0))
+    typedArray.recycle()
+    isClickable = true
+}
+
+fun ViewGroup.setMinimumListHeight() {
+    val tv = TypedValue()
+    if (context.theme.resolveAttribute(android.R.attr.listPreferredItemHeight, tv, true)) {
+        minimumHeight = TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics)
+    }
 }
