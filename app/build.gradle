@@ -102,7 +102,10 @@ dependencies {
             libraries.conductor,
             libraries.conductor_support,
             libraries.conductor_rxlifecycle,
-            libraries.picasso)
+            libraries.icepick,
+            libraries.dart)
+
+    provided(libraries.icepick_processor, libraries.dart_processor)
 
     kapt(libraries.dagger_compiler, libraries.butterknife_compiler)
 }

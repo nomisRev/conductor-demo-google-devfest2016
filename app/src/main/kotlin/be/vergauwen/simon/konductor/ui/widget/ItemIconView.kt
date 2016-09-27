@@ -42,6 +42,18 @@ class ItemIconView @JvmOverloads constructor(context: Context, attrs: AttributeS
             style = Paint.Style.FILL
             color = this@ItemIconView.color
         }
+
+        getAttrs(attrs, defStyleAttr)
+    }
+
+    private fun getAttrs(attrs: AttributeSet?, defStyleAttr: Int) {
+        val attributes = context.theme.obtainStyledAttributes(attrs, R.styleable.ItemIconView, defStyleAttr, 0)
+
+        try {
+
+        } finally {
+            attributes.recycle()
+        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

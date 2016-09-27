@@ -1,6 +1,8 @@
 package be.vergauwen.simon.konductor.core.anko
 
+import android.content.Context
 import android.content.Intent
+import android.graphics.Point
 import android.graphics.drawable.Drawable
 import android.support.annotation.ColorRes
 import android.support.annotation.DrawableRes
@@ -9,6 +11,7 @@ import android.util.TypedValue
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewManager
+import android.view.WindowManager
 import be.vergauwen.simon.konductor.R
 import be.vergauwen.simon.konductor.ui.widget.ItemIconView
 import com.bluelinelabs.conductor.ChangeHandlerFrameLayout
@@ -20,9 +23,9 @@ inline fun ViewManager.changeHandlerFrameLayout(theme: Int = 0, init: ChangeHand
 fun ViewManager.itemIconView(theme: Int = 0) = itemIconView(theme) {}
 inline fun ViewManager.itemIconView(theme: Int = 0, init: ItemIconView.() -> Unit) = ankoView({ ItemIconView(it) }, theme, init)
 
-fun View.drawable(@DrawableRes resource: Int) : Drawable = ContextCompat.getDrawable(context, resource)
+fun View.drawable(@DrawableRes resource: Int): Drawable = ContextCompat.getDrawable(context, resource)
 
-fun View.color(@ColorRes resource: Int) : Int = ContextCompat.getColor(context, resource)
+fun View.color(@ColorRes resource: Int): Int = ContextCompat.getColor(context, resource)
 
 fun Intent.defaultCategory(): Intent = apply { addCategory(Intent.CATEGORY_DEFAULT) }
 
@@ -47,4 +50,15 @@ fun ViewGroup.setMinimumListHeight() {
     if (context.theme.resolveAttribute(android.R.attr.listPreferredItemHeight, tv, true)) {
         minimumHeight = TypedValue.complexToDimensionPixelSize(tv.data, resources.displayMetrics)
     }
+}
+
+fun <T : View> T.widthProcent(procent: Int): Int = getAppUseableScreenSize().x.toFloat().times(procent.toFloat() / 100).toInt()
+
+fun <T : View> T.heightProcent(procent: Int): Int = getAppUseableScreenSize().y.toFloat().times(procent.toFloat() / 100).toInt()
+
+fun <T : View> T.getAppUseableScreenSize(): Point {
+    val display = (context.getSystemService(Context.WINDOW_SERVICE) as WindowManager).defaultDisplay
+    val size = Point()
+    display.getSize(size)
+    return size
 }
