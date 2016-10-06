@@ -6,11 +6,13 @@ import android.support.design.widget.AppBarLayout
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.ViewGroup
-import be.vergauwen.simon.konductor.core.ActionBarProvider
 import be.vergauwen.simon.konductor.core.anko.actionBarSize
 import be.vergauwen.simon.konductor.core.anko.changeHandlerFrameLayout
 import be.vergauwen.simon.konductor.core.anko.color
 import be.vergauwen.simon.konductor.core.controllers.MasterDetailController
+import be.vergauwen.simon.konductor.core.di.component.ActivityComponent
+import be.vergauwen.simon.konductor.core.di.component.DaggerActivityComponent
+import be.vergauwen.simon.konductor.core.di.modules.ActivityModule
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction
@@ -19,12 +21,14 @@ import org.jetbrains.anko.design.appBarLayout
 import org.jetbrains.anko.design.coordinatorLayout
 import org.jetbrains.anko.matchParent
 
-class MainActivity : AppCompatActivity(), ActionBarProvider {
+class MainActivity : AppCompatActivity() {
 
     internal var toolbar: Toolbar? = null
     internal var container: ViewGroup? = null
 
     private var router: Router? = null
+
+    var component : ActivityComponent = DaggerActivityComponent.builder().activityModule(ActivityModule(this)).build()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

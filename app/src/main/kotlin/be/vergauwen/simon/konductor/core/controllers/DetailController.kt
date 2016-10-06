@@ -8,18 +8,19 @@ import android.view.View
 import android.view.ViewGroup
 import be.vergauwen.simon.konductor.R
 import be.vergauwen.simon.konductor.core.anko.itemIconView
+import be.vergauwen.simon.konductor.core.di.component.BaseComponent
 import org.jetbrains.anko.*
 
 class DetailController(args: Bundle) : BaseController(args) {
-
-    override val title: String?
-        get() = "Detail controller"
 
     companion object {
         val KEY_TITLE = "ChildController.title"
         val KEY_COLOR = "ChildController.color"
         val KEY_DRAW_RES = "ChildController.drawableResId"
     }
+
+    override val component: BaseComponent
+        get() = throw UnsupportedOperationException()
 
     constructor(title: String, iconColorResId: Int, drawableResId: Int) : this((Bundle().apply {
         putString(KEY_TITLE, title)

@@ -7,8 +7,12 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import be.vergauwen.simon.konductor.MainActivity
 import be.vergauwen.simon.konductor.core.RxDataRepo
 import be.vergauwen.simon.konductor.core.anko.widthProcent
+import be.vergauwen.simon.konductor.core.di.component.DaggerMasterComponent
+import be.vergauwen.simon.konductor.core.di.component.MasterComponent
+import be.vergauwen.simon.konductor.core.di.modules.BaseModule
 import be.vergauwen.simon.konductor.ui.adapter.ItemAdapter
 import be.vergauwen.simon.konductor.ui.widget.util.onItemClick
 import com.bluelinelabs.conductor.RouterTransaction
@@ -22,13 +26,18 @@ import timber.log.Timber
 class MasterDetailController : BaseController() {
 
     override val title: String?
-        get() = "Konductor Master-Detail"
-
+        get() = "Konductor"
 
     private var recyclerView: RecyclerView? = null
     private var detailContainer: ViewGroup? = null
     private var itemAdapter = ItemAdapter()
     @State private var selectedIndex: Int = -1
+    override val component: MasterComponent
+        get() = DaggerMasterComponent.builder().activityComponent((activity as MainActivity).component).baseModule(BaseModule()).build()
+
+    init {
+        Timber.e("supportActionBar = $supportActionBar")
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         Timber.e("onCreateView()")
