@@ -16,5 +16,4 @@ class KonductorApp : Application() {
             LeakCanary.install(this)
         }
     }
-
 }

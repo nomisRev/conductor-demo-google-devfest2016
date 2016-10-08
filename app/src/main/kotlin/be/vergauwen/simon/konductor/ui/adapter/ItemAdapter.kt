@@ -30,7 +30,7 @@ class ItemAdapter(private val items: MutableList<Item> = mutableListOf<Item>()) 
     fun addItem(item: Item) {
         if (items.contains(item)) return
         items.add(item)
-        notifyDataSetChanged()
+        notifyItemInserted(items.indexOf(item))
     }
 
     fun getItem(position: Int): Item = items[position]

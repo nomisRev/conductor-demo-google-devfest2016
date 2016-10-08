@@ -1,19 +1,21 @@
-package be.vergauwen.simon.konductor.core.controllers
+package be.vergauwen.simon.konductor.core.mvp
 
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.view.View
 import be.vergauwen.simon.konductor.KonductorApp
-import be.vergauwen.simon.konductor.core.di.component.BaseControllerComponent
 import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.ControllerChangeType
 import com.bluelinelabs.conductor.rxlifecycle.RxController
+import icepick.Icepick
 
-abstract class BaseController @JvmOverloads constructor(args: Bundle? = null) : RxController(args) {
+abstract class MVPBaseController<V : MVPContract.View, out P : MVPContract.Presenter<V>,
+        out C : MVPContract.Component<V, P>> @JvmOverloads constructor(args: Bundle? = null) : RxController(args), MVPContract.View {
 
     private var hasExited: Boolean = false
-    protected abstract val component: BaseControllerComponent
+    protected abstract val component: C
     protected val supportActionBar: ActionBar? by lazy { component.actionBarProvider.supportActionBar }
+    protected val presenter: P by lazy { component.presenter }
     protected open val title: String? = null
 
 //    // Note: This is just a quick demo of how an ActionBar *can* be accessed, not necessarily how it *should*
@@ -23,9 +25,26 @@ abstract class BaseController @JvmOverloads constructor(args: Bundle? = null) : 
 //        return actionBarProvider.supportActionBar
 //    }
 
+    @Suppress("UNCHECKED_CAST")
     override fun onAttach(view: View) {
-        title?.let { supportActionBar?.title = it }
         super.onAttach(view)
+        title?.let { supportActionBar?.title = it }
+        presenter.attachView(this as V)
+    }
+
+    override fun onDetach(view: View) {
+        super.onDetach(view)
+        presenter.detachView()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Icepick.saveInstanceState(this, outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        Icepick.restoreInstanceState(this, savedInstanceState)
     }
 
     public override fun onDestroy() {

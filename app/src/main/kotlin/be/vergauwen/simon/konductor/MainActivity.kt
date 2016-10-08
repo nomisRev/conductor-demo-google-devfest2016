@@ -9,10 +9,10 @@ import android.view.ViewGroup
 import be.vergauwen.simon.konductor.core.anko.actionBarSize
 import be.vergauwen.simon.konductor.core.anko.changeHandlerFrameLayout
 import be.vergauwen.simon.konductor.core.anko.color
-import be.vergauwen.simon.konductor.core.controllers.MasterDetailController
 import be.vergauwen.simon.konductor.core.di.component.ActivityComponent
 import be.vergauwen.simon.konductor.core.di.component.DaggerActivityComponent
 import be.vergauwen.simon.konductor.core.di.modules.ActivityModule
+import be.vergauwen.simon.konductor.ui.controllers.MasterDetailController
 import com.bluelinelabs.conductor.Conductor
 import com.bluelinelabs.conductor.Router
 import com.bluelinelabs.conductor.RouterTransaction

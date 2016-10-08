@@ -1,4 +1,4 @@
-package be.vergauwen.simon.konductor.core.controllers
+package be.vergauwen.simon.konductor.ui.controllers
 
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
@@ -9,11 +9,14 @@ import android.view.ViewGroup
 import be.vergauwen.simon.konductor.MainActivity
 import be.vergauwen.simon.konductor.R
 import be.vergauwen.simon.konductor.core.anko.itemIconView
-import be.vergauwen.simon.konductor.core.di.component.BaseControllerComponent
-import be.vergauwen.simon.konductor.core.di.component.DaggerBaseControllerComponent
+import be.vergauwen.simon.konductor.core.mvp.MVPBaseController
+import be.vergauwen.simon.konductor.ui.component.DaggerDetailComponent
+import be.vergauwen.simon.konductor.ui.component.DetailComponent
+import be.vergauwen.simon.konductor.ui.contract.DetailContract
+import be.vergauwen.simon.konductor.ui.presenter.DetailPresenter
 import org.jetbrains.anko.*
 
-class DetailController(args: Bundle) : BaseController(args) {
+class DetailController(args: Bundle) : MVPBaseController<DetailContract.View, DetailPresenter, DetailComponent>(args) {
 
     companion object {
         val KEY_TITLE = "ChildController.title"
@@ -21,8 +24,8 @@ class DetailController(args: Bundle) : BaseController(args) {
         val KEY_DRAW_RES = "ChildController.drawableResId"
     }
 
-    override val component: BaseControllerComponent
-        get() = DaggerBaseControllerComponent.builder().activityComponent((activity as MainActivity).component).build()
+    override val component: DetailComponent
+        get() = DaggerDetailComponent.builder().activityComponent((activity as MainActivity).component).build()
 
     constructor(title: String, iconColorResId: Int, drawableResId: Int) : this((Bundle().apply {
         putString(KEY_TITLE, title)
