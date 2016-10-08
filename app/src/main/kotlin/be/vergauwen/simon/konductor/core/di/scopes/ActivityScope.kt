@@ -1,8 +1,8 @@
 package be.vergauwen.simon.konductor.core.di.scopes
 
-import javax.inject.Scope
+import javax.inject.Named
 
 //When using conductor Application/Activity scope is the same.
-@Scope
+@Named
 @Retention
 annotation class ActivityScope

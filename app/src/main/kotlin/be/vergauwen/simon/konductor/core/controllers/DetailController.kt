@@ -6,9 +6,11 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import be.vergauwen.simon.konductor.MainActivity
 import be.vergauwen.simon.konductor.R
 import be.vergauwen.simon.konductor.core.anko.itemIconView
-import be.vergauwen.simon.konductor.core.di.component.BaseComponent
+import be.vergauwen.simon.konductor.core.di.component.BaseControllerComponent
+import be.vergauwen.simon.konductor.core.di.component.DaggerBaseControllerComponent
 import org.jetbrains.anko.*
 
 class DetailController(args: Bundle) : BaseController(args) {
@@ -19,8 +21,8 @@ class DetailController(args: Bundle) : BaseController(args) {
         val KEY_DRAW_RES = "ChildController.drawableResId"
     }
 
-    override val component: BaseComponent
-        get() = throw UnsupportedOperationException()
+    override val component: BaseControllerComponent
+        get() = DaggerBaseControllerComponent.builder().activityComponent((activity as MainActivity).component).build()
 
     constructor(title: String, iconColorResId: Int, drawableResId: Int) : this((Bundle().apply {
         putString(KEY_TITLE, title)

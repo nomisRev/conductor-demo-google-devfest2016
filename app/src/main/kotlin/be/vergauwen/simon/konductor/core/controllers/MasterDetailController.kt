@@ -12,7 +12,6 @@ import be.vergauwen.simon.konductor.core.RxDataRepo
 import be.vergauwen.simon.konductor.core.anko.widthProcent
 import be.vergauwen.simon.konductor.core.di.component.DaggerMasterComponent
 import be.vergauwen.simon.konductor.core.di.component.MasterComponent
-import be.vergauwen.simon.konductor.core.di.modules.BaseModule
 import be.vergauwen.simon.konductor.ui.adapter.ItemAdapter
 import be.vergauwen.simon.konductor.ui.widget.util.onItemClick
 import com.bluelinelabs.conductor.RouterTransaction
@@ -31,14 +30,12 @@ class MasterDetailController : BaseController() {
     private var recyclerView: RecyclerView? = null
     private var detailContainer: ViewGroup? = null
     private var itemAdapter = ItemAdapter()
+
     @State private var selectedIndex: Int = -1
+
     override val component: MasterComponent
-        get() = DaggerMasterComponent.builder().activityComponent((activity as MainActivity).component).baseModule(BaseModule()).build()
-
-    init {
-        Timber.e("supportActionBar = $supportActionBar")
-    }
-
+        get() = DaggerMasterComponent.builder().activityComponent((activity as MainActivity).component).build()
+    
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View {
         Timber.e("onCreateView()")
         return activity.UI {
@@ -104,7 +101,7 @@ class MasterDetailController : BaseController() {
     }
 
     //View item selected
-    internal fun onRowSelected(index: Int) {
+    private fun onRowSelected(index: Int) {
         if (index == -1) return
 
         selectedIndex = index

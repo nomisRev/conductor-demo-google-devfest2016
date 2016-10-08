@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.view.View
 import be.vergauwen.simon.konductor.KonductorApp
-import be.vergauwen.simon.konductor.core.di.component.BaseComponent
+import be.vergauwen.simon.konductor.core.di.component.BaseControllerComponent
 import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.ControllerChangeType
 import com.bluelinelabs.conductor.rxlifecycle.RxController
@@ -12,8 +12,8 @@ import com.bluelinelabs.conductor.rxlifecycle.RxController
 abstract class BaseController @JvmOverloads constructor(args: Bundle? = null) : RxController(args) {
 
     private var hasExited: Boolean = false
-    protected abstract val component: BaseComponent
-    protected val supportActionBar: ActionBar? = component.actionBarProvider.supportActionBar
+    protected abstract val component: BaseControllerComponent
+    protected val supportActionBar: ActionBar? by lazy { component.actionBarProvider.supportActionBar }
     protected open val title: String? = null
 
 //    // Note: This is just a quick demo of how an ActionBar *can* be accessed, not necessarily how it *should*

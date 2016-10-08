@@ -1,12 +1,15 @@
 package be.vergauwen.simon.konductor.core.di.component
 
 import android.support.v7.app.AppCompatActivity
+import be.vergauwen.simon.konductor.core.di.activity.ActionBarProvider
 import be.vergauwen.simon.konductor.core.di.modules.ActivityModule
-import be.vergauwen.simon.konductor.core.di.scopes.ActivityScope
 import dagger.Component
+import javax.inject.Singleton
 
-@ActivityScope
+@Singleton
 @Component(modules = arrayOf(ActivityModule::class))
 interface ActivityComponent {
     val appCompatActivity: AppCompatActivity
+    val actionBarProvider: ActionBarProvider
+
 }
