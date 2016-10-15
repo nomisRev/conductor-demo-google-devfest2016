@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/common/common.iml" filepath="$PROJECT_DIR$/common/common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/conductor/conductor.iml" filepath="$PROJECT_DIR$/conductor/conductor.iml" />
       <module fileurl="file://$PROJECT_DIR$/conductor-kotlin-example.iml" filepath="$PROJECT_DIR$/conductor-kotlin-example.iml" />
+      <module fileurl="file://$PROJECT_DIR$/konductor/Konductor.iml" filepath="$PROJECT_DIR$/konductor/Konductor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/plainoldandroidmaster-detail/plainoldandroidmaster-detail.iml" filepath="$PROJECT_DIR$/plainoldandroidmaster-detail/plainoldandroidmaster-detail.iml" />
     </modules>
   </component>
 </project>

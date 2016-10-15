@@ -20,7 +20,7 @@ buildscript {
         rx_preferences_version = "1.0.2"
         realm_version = "1.1.1"
         calligraphy_version = "2.2.0"
-        conductor_version = "2.0.2"
+        conductor_version = "2.0.3"
         icepick_version = "3.2.0"
         dart_version = "2.0.1"
 
@@ -84,9 +84,18 @@ buildscript {
                      powermock_rule       : "org.powermock:powermock-module-junit4-rule:$powermock_version",
                      powermock_junit      : "org.powermock:powermock-module-junit4:$powermock_version",
                      calligraphy          : "uk.co.chrisjenx:calligraphy:$calligraphy_version",
-                     conductor            : "com.bluelinelabs:conductor:$conductor_version",
-                     conductor_support    : "com.bluelinelabs:conductor-support:$conductor_version",
-                     conductor_rxlifecycle: "com.bluelinelabs:conductor-rxlifecycle:$conductor_version",
+                     conductor            :
+                             dependencies.create("com.bluelinelabs:conductor:$conductor_version") {
+                                 exclude group: 'com.google.code.findbugs', module: 'jsr305'
+                             },
+                     conductor_support    :
+                             dependencies.create("com.bluelinelabs:conductor-support:$conductor_version") {
+                                 exclude group: 'com.google.code.findbugs', module: 'jsr305'
+                             },
+                     conductor_rxlifecycle:
+                             dependencies.create("com.bluelinelabs:conductor-rxlifecycle:$conductor_version") {
+                                 exclude group: 'com.google.code.findbugs', module: 'jsr305'
+                             },
                      icepick              : "frankiesardo:icepick:$icepick_version",
                      icepick_processor    : "frankiesardo:icepick-processor:$icepick_version",
                      dart                 : "com.f2prateek.dart:dart:$dart_version",
