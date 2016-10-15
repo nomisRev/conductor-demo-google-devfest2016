@@ -18,7 +18,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
 
     private final List<Item> items = new ArrayList<>();
 
-
     @Override
     public int getItemCount() {
         return items.size();

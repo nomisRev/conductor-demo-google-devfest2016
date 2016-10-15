@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/conductor/conductor.iml" filepath="$PROJECT_DIR$/conductor/conductor.iml" />
       <module fileurl="file://$PROJECT_DIR$/conductor-kotlin-example.iml" filepath="$PROJECT_DIR$/conductor-kotlin-example.iml" />
       <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/konductor/Konductor.iml" filepath="$PROJECT_DIR$/konductor/Konductor.iml" />
+      <module fileurl="file://$PROJECT_DIR$/konductor/konductor.iml" filepath="$PROJECT_DIR$/konductor/konductor.iml" />
       <module fileurl="file://$PROJECT_DIR$/plainoldandroidmaster-detail/plainoldandroidmaster-detail.iml" filepath="$PROJECT_DIR$/plainoldandroidmaster-detail/plainoldandroidmaster-detail.iml" />
     </modules>
   </component>
