@@ -5,11 +5,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import be.vergauwen.simon.common.di.model.Item
 import be.vergauwen.simon.konductor.R
 import be.vergauwen.simon.konductor.core.anko.itemIconView
 import be.vergauwen.simon.konductor.core.anko.setMinimumListHeight
 import be.vergauwen.simon.konductor.core.anko.setSelectableItemBackground
-import be.vergauwen.simon.common.di.model.Item
 import org.jetbrains.anko.*
 
 class ItemAdapter(private val items: MutableList<Item> = mutableListOf<Item>()) : RecyclerView.Adapter<ItemViewHolder>() {
@@ -33,7 +33,7 @@ class ItemAdapter(private val items: MutableList<Item> = mutableListOf<Item>()) 
         notifyItemInserted(items.indexOf(item))
     }
 
-    fun getItem(position: Int): Item = items[position]
+    fun getItem(position: Int): Item? = items.getOrNull(position)
 
     ///////////////////
     // Anko View

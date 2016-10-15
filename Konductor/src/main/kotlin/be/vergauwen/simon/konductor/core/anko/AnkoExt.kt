@@ -13,7 +13,7 @@ import android.view.ViewGroup
 import android.view.ViewManager
 import android.view.WindowManager
 import be.vergauwen.simon.konductor.R
-import be.vergauwen.simon.konductor.ui.widget.ItemIconView
+import be.vergauwen.simon.common.ui.widget.ItemIconView
 import com.bluelinelabs.conductor.ChangeHandlerFrameLayout
 import org.jetbrains.anko.custom.ankoView
 

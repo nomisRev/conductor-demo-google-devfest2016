@@ -60,7 +60,7 @@ dependencies {
     debugCompile(libraries.leak_canary)
     releaseCompile(libraries.leak_canary_release)
 
-    compile project(":common")
+    compile project(':core')
 
     testCompile(libraries.junit,
             libraries.kotlin,

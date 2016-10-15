@@ -3,14 +3,15 @@ package be.vergauwen.simon.konductor.core.mvp
 import android.os.Bundle
 import android.support.v7.app.ActionBar
 import android.view.View
+import be.vergauwen.simon.common.mvp.MVPContract
 import be.vergauwen.simon.konductor.KonductorApp
 import com.bluelinelabs.conductor.ControllerChangeHandler
 import com.bluelinelabs.conductor.ControllerChangeType
 import com.bluelinelabs.conductor.rxlifecycle.RxController
 import icepick.Icepick
 
-abstract class MVPBaseController<V : KonductorMVPContract.View, out P : KonductorMVPContract.Presenter<V>,
-        out C : KonductorMVPContract.Component<V, P>> @JvmOverloads constructor(args: Bundle? = null) : RxController(args), KonductorMVPContract.View {
+abstract class MVPBaseController<V : MVPContract.View, out P : MVPContract.Presenter<V>,
+        out C : MVPContract.Component<V, P>> @JvmOverloads constructor(args: Bundle? = null) : RxController(args) {
 
     private var hasExited: Boolean = false
     protected abstract val component: C

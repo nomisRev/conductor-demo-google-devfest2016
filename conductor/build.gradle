@@ -53,7 +53,7 @@ dependencies {
     debugCompile(libraries.leak_canary)
     releaseCompile(libraries.leak_canary_release)
 
-    compile project(":common")
+    compile project(':core')
 
     testCompile(libraries.junit,
             libraries.kotlin,
@@ -83,6 +83,7 @@ dependencies {
             libraries.design_support,
             libraries.dagger,
             libraries.rxjava,
+            libraries.butterknife,
             libraries.rxandroid,
             libraries.timber,
             libraries.kotlin,
@@ -100,7 +101,7 @@ dependencies {
 
     provided(libraries.icepick_processor)
 
-    kapt(libraries.dagger_compiler)
+    kapt(libraries.dagger_compiler, libraries.butterknife_compiler)
 }
 
 def buildVersionName(versionMajor, versionMinor, versionPatch) {

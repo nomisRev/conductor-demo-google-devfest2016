@@ -13,7 +13,7 @@ class KonductorApp : Application() {
         super.onCreate()
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
-            LeakCanary.install(this)
+            refWatcher = LeakCanary.install(this)
         }
     }
 }

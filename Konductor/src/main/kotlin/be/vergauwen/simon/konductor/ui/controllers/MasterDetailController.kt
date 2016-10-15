@@ -7,22 +7,21 @@ import android.view.View
 import android.view.ViewGroup
 import be.vergauwen.simon.common.di.model.Item
 import be.vergauwen.simon.common.di.modules.DataModule
+import be.vergauwen.simon.common.ui.component.DaggerMasterComponent
+import be.vergauwen.simon.common.ui.component.MasterComponent
+import be.vergauwen.simon.common.ui.contract.MasterContract
+import be.vergauwen.simon.common.ui.presenter.MasterPresenter
+import be.vergauwen.simon.common.ui.widget.util.onItemClick
 import be.vergauwen.simon.konductor.MainActivity
 import be.vergauwen.simon.konductor.core.anko.widthProcent
 import be.vergauwen.simon.konductor.core.mvp.MVPBaseController
 import be.vergauwen.simon.konductor.ui.adapter.ItemAdapter
-import be.vergauwen.simon.konductor.ui.component.DaggerMasterComponent
-import be.vergauwen.simon.konductor.ui.component.MasterComponent
-import be.vergauwen.simon.konductor.ui.contract.MasterContract
 import be.vergauwen.simon.konductor.ui.layout.configuration
-import be.vergauwen.simon.konductor.ui.presenter.MasterPresenter
-import be.vergauwen.simon.konductor.ui.widget.util.onItemClick
 import com.bluelinelabs.conductor.RouterTransaction
 import com.bluelinelabs.conductor.changehandler.HorizontalChangeHandler
 import icepick.State
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
-import timber.log.Timber
 
 class MasterDetailController : MVPBaseController<MasterContract.View, MasterPresenter, MasterComponent>(), MasterContract.View {
 
@@ -46,7 +45,7 @@ class MasterDetailController : MVPBaseController<MasterContract.View, MasterPres
                 }.lparams(width = matchParent, height = matchParent)
             }
 
-            configuration(orientation = Orientation.LANDSCAPE, largestWidthInInch = 4.3f){
+            configuration(orientation = Orientation.LANDSCAPE, largestWidthInInch = 4.3f) {
                 recyclerView = recyclerView {
                     init()
                 }.lparams(width = matchParent, height = matchParent)
@@ -55,7 +54,7 @@ class MasterDetailController : MVPBaseController<MasterContract.View, MasterPres
             configuration(orientation = Orientation.LANDSCAPE, smallestWidthInInch = 4.3f) {
                 recyclerView = recyclerView {
                     init()
-                }.lparams(width = widthProcent(40), height = matchParent)
+                }.lparams(width = widthProcent(50), height = matchParent)
 
                 detailContainer = frameLayout {
 
@@ -74,7 +73,6 @@ class MasterDetailController : MVPBaseController<MasterContract.View, MasterPres
     }
 
     override fun onAttach(view: View) {
-        Timber.e("onAttach: $view")
         super.onAttach(view)
         presenter.getData()
     }
@@ -86,12 +84,14 @@ class MasterDetailController : MVPBaseController<MasterContract.View, MasterPres
         selectedIndex = index
 
         val model = itemAdapter.getItem(index)
-        val controller = DetailController(model.name, model.itemColorId, model.drawableResId)
+        model?.let {
+            val controller = DetailController(it.name, it.itemColorId, it.drawableResId)
 
-        if (detailContainer != null) {
-            detailContainer?.let { getChildRouter(it, null).setRoot(RouterTransaction.with(controller)) }
-        } else {
-            router.pushController(RouterTransaction.with(controller).pushChangeHandler(HorizontalChangeHandler()).popChangeHandler(HorizontalChangeHandler()))
+            if (detailContainer != null) {
+                detailContainer?.let { getChildRouter(it, null).setRoot(RouterTransaction.with(controller)) }
+            } else {
+                router.pushController(RouterTransaction.with(controller).pushChangeHandler(HorizontalChangeHandler()).popChangeHandler(HorizontalChangeHandler()))
+            }
         }
     }
 

@@ -10,13 +10,15 @@ import be.vergauwen.simon.konductor.MainActivity
 import be.vergauwen.simon.konductor.R
 import be.vergauwen.simon.konductor.core.anko.itemIconView
 import be.vergauwen.simon.konductor.core.mvp.MVPBaseController
-import be.vergauwen.simon.konductor.ui.component.DaggerDetailComponent
-import be.vergauwen.simon.konductor.ui.component.DetailComponent
-import be.vergauwen.simon.konductor.ui.contract.DetailContract
-import be.vergauwen.simon.konductor.ui.presenter.DetailPresenter
+import be.vergauwen.simon.common.ui.component.DetailComponent
+import be.vergauwen.simon.common.ui.contract.DetailContract
+import be.vergauwen.simon.common.ui.presenter.DetailPresenter
+
+import be.vergauwen.simon.common.ui.component.DaggerDetailComponent;
+
 import org.jetbrains.anko.*
 
-class DetailController(args: Bundle) : MVPBaseController<DetailContract.View, DetailPresenter, DetailComponent>(args) {
+class DetailController(args: Bundle) : MVPBaseController<DetailContract.View, DetailPresenter, DetailComponent>(args), DetailContract.View {
 
     companion object {
         val KEY_TITLE = "ChildController.title"

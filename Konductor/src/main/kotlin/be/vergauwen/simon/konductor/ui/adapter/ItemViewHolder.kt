@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.TextView
 import be.vergauwen.simon.konductor.R
 import be.vergauwen.simon.common.di.model.Item
-import be.vergauwen.simon.konductor.ui.widget.ItemIconView
+import be.vergauwen.simon.common.ui.widget.ItemIconView
 
 class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
