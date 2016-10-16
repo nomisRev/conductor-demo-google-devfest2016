@@ -1,13 +1,14 @@
-package be.vergauwen.simon.conductor.ui.adapter;
+package com.example.plainoldandroidmaster_detail.ui.adapter;
 
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.plainoldandroidmaster_detail.R;
+
 import be.vergauwen.simon.common.di.model.Item;
 import be.vergauwen.simon.common.ui.widget.ItemIconView;
-import be.vergauwen.simon.conductor.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 

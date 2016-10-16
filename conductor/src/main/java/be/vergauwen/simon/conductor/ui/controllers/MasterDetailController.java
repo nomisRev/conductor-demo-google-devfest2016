@@ -15,6 +15,7 @@ import com.bluelinelabs.conductor.RouterTransaction;
 import org.jetbrains.annotations.NotNull;
 
 import be.vergauwen.simon.common.di.model.Item;
+import be.vergauwen.simon.common.di.modules.DataModule;
 import be.vergauwen.simon.common.ui.component.DaggerMasterComponent;
 import be.vergauwen.simon.common.ui.component.MasterComponent;
 import be.vergauwen.simon.common.ui.contract.MasterContract;
@@ -33,7 +34,10 @@ public class MasterDetailController extends MVPBaseController<MasterContract.Vie
 
     @Override
     protected MasterComponent createComponent() {
-        return DaggerMasterComponent.builder().activityComponent(((MainActivity) getActivity()).component).build();
+        return DaggerMasterComponent.builder()
+                .activityComponent(((MainActivity) getActivity()).component)
+                .dataModule(new DataModule())
+                .build();
     }
 
     @BindView(R.id.container)
@@ -58,16 +62,7 @@ public class MasterDetailController extends MVPBaseController<MasterContract.Vie
     @Override
     protected void onViewBound(@NonNull View view) {
         super.onViewBound(view);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        itemAdapter = new ItemAdapter();
-        recyclerView.setAdapter(itemAdapter);
-        RecyclerViewExtKt.addItemClickListener(recyclerView, new OnItemClickListener() {
-            @Override
-            public void onItemClick(@NotNull View view, int position) {
-                onRowSelected(position);
-            }
-        });
+        setUpRecyclerView();
 
         twoPaneView = (detailContainer != null);
         if (twoPaneView) {
@@ -81,6 +76,19 @@ public class MasterDetailController extends MVPBaseController<MasterContract.Vie
         presenter.getData();
     }
 
+    private void setUpRecyclerView() {
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+        itemAdapter = new ItemAdapter();
+        recyclerView.setAdapter(itemAdapter);
+        RecyclerViewExtKt.addItemClickListener(recyclerView, new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NotNull View view, int position) {
+                onRowSelected(position);
+            }
+        });
+    }
+
     void onRowSelected(int index) {
         selectedIndex = index;
 
@@ -89,17 +97,22 @@ public class MasterDetailController extends MVPBaseController<MasterContract.Vie
 
         ChildController controller = new ChildController(item.getName(), item.getItemColorId(), item.getDrawableResId());
 
-        if (twoPaneView && detailContainer != null) {
-            getChildRouter(detailContainer, null).setRoot(RouterTransaction.with(controller));
-        } else {
-            View circularRevealView = recyclerView.getChildAt(index).findViewById(R.id.action_icon);
-            CircularRevealChangeHandlerCompat transition = circularRevealView != null ?
-                    new CircularRevealChangeHandlerCompat(circularRevealView, container) :
-                    new CircularRevealChangeHandlerCompat();
+        View circularRevealView = recyclerView.getChildAt(index).findViewById(R.id.action_icon);
+        CircularRevealChangeHandlerCompat transition = circularRevealView != null ?
+                new CircularRevealChangeHandlerCompat(circularRevealView, container) :
+                new CircularRevealChangeHandlerCompat();
 
-            getRouter().pushController(RouterTransaction.with(controller)
-                    .pushChangeHandler(transition)
-                    .popChangeHandler(transition)
+        if (twoPaneView && detailContainer != null) {
+            getChildRouter(detailContainer, null).setRoot(
+                    RouterTransaction.with(controller)
+//                            .popChangeHandler(transition)
+//                            .pushChangeHandler(transition)
+            );
+        } else {
+            getRouter().pushController(
+                    RouterTransaction.with(controller)
+                            .pushChangeHandler(transition)
+                            .popChangeHandler(transition)
             );
         }
     }

@@ -66,6 +66,8 @@ dependencies {
     compile(libraries.android_appcompat,
             libraries.design_support,
             libraries.dagger,
+            libraries.kotlin,       //required because core has dependency on kotlin
+            libraries.butterknife,
             libraries.rxjava,
             libraries.rxandroid,
             libraries.timber,
@@ -73,7 +75,7 @@ dependencies {
 
     provided(libraries.icepick_processor)
 
-    apt(libraries.dagger_compiler)
+    apt(libraries.dagger_compiler, libraries.butterknife_compiler)
 }
 
 def buildVersionName(versionMajor, versionMinor, versionPatch) {
