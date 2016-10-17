@@ -9,6 +9,7 @@
 
     <be.vergauwen.simon.common.ui.widget.ItemIconView
         android:id="@+id/action_icon"
+        android:transitionName="@string/reaveal_element"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_gravity="center"

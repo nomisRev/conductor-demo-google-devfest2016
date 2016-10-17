@@ -12,10 +12,9 @@ import be.vergauwen.simon.common.ui.widget.ItemIconView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-class ItemViewHolder extends RecyclerView.ViewHolder {
+public class ItemViewHolder extends RecyclerView.ViewHolder {
 
-    @BindView(R.id.action_icon)
-    ItemIconView itemIconView;
+    @BindView(R.id.action_icon) public ItemIconView itemIconView;
     @BindView(R.id.action_text)
     TextView actionText;
 

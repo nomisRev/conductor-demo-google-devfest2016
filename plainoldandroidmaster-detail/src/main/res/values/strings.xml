@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Plain Old Android Master-Detail</string>
+    <string name="reaveal_element">reveal</string>
 </resources>

@@ -30,7 +30,7 @@ import be.vergauwen.simon.conductor.ui.adapter.ItemAdapter;
 import butterknife.BindView;
 import icepick.State;
 
-public class MasterDetailController extends MVPBaseController<MasterContract.View, MasterPresenter, MasterComponent> implements MasterContract.View {
+public class MasterViewControllerSmart extends MVPBaseController<MasterContract.View, MasterPresenter, MasterComponent> implements MasterContract.View {
 
     @Override
     protected MasterComponent createComponent() {
@@ -83,7 +83,7 @@ public class MasterDetailController extends MVPBaseController<MasterContract.Vie
         recyclerView.setAdapter(itemAdapter);
         RecyclerViewExtKt.addItemClickListener(recyclerView, new OnItemClickListener() {
             @Override
-            public void onItemClick(@NotNull View view, int position) {
+            public void onItemClick(@NotNull RecyclerView.ViewHolder view, int position) {
                 onRowSelected(position);
             }
         });
@@ -105,8 +105,6 @@ public class MasterDetailController extends MVPBaseController<MasterContract.Vie
         if (twoPaneView && detailContainer != null) {
             getChildRouter(detailContainer, null).setRoot(
                     RouterTransaction.with(controller)
-//                            .popChangeHandler(transition)
-//                            .pushChangeHandler(transition)
             );
         } else {
             getRouter().pushController(

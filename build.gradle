@@ -121,7 +121,7 @@ buildscript {
     ext.versions = [
             compile_sdk: 23,
             build_tools: "24.0.1",
-            min_sdk    : 18,
+            min_sdk    : 19,
             target_sdk : 23
     ]
 

@@ -1,11 +1,19 @@
 package com.example.plainoldandroidmaster_detail.ui.view;
 
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.view.animation.PathInterpolatorCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.transition.ArcMotion;
+import android.transition.ChangeBounds;
+import android.transition.Fade;
+import android.transition.Transition;
+import android.transition.TransitionSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +23,7 @@ import com.example.plainoldandroidmaster_detail.MainActivity;
 import com.example.plainoldandroidmaster_detail.R;
 import com.example.plainoldandroidmaster_detail.core.mvp.MVPFragment;
 import com.example.plainoldandroidmaster_detail.ui.adapter.ItemAdapter;
+import com.example.plainoldandroidmaster_detail.ui.adapter.ItemViewHolder;
 
 import be.vergauwen.simon.common.di.model.Item;
 import be.vergauwen.simon.common.di.modules.DataModule;
@@ -70,10 +79,6 @@ public class MasterFragment extends MVPFragment<MasterContract.View, MasterPrese
         setUpRecyclerView();
 
         twoPaneView = (detailContainer != null);
-        if (twoPaneView) {
-            onRowSelected(selectedIndex);
-        }
-
         presenter.getData();
     }
 
@@ -84,19 +89,27 @@ public class MasterFragment extends MVPFragment<MasterContract.View, MasterPrese
         recyclerView.setAdapter(itemAdapter);
         RecyclerViewExtKt.addItemClickListener(recyclerView, new OnItemClickListener() {
             @Override
-            public void onItemClick(@NonNull View view, int position) {
-                onRowSelected(position);
+            public void onItemClick(@NonNull RecyclerView.ViewHolder view, int position) {
+                onRowSelected(((ItemViewHolder) view).itemView, position);
             }
         });
     }
 
-    void onRowSelected(int index) {
+    void onRowSelected(final View view, int index) {
         selectedIndex = index;
 
         Item item = itemAdapter.getItem(index);
         if (item == null) return;
 
-        DetailFragment detailFragment = DetailFragment.newInstance(item.getName(), item.getItemColorId(), item.getDrawableResId());
+        DetailFragment detailFragment = DetailFragment.newInstance(item.getName(), item.getItemColorId(), item.getDrawableResId()/*, index*/);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            view.setTransitionName(getString(R.string.reaveal_element));
+            detailFragment.setSharedElementEnterTransition(transition());
+            detailFragment.setEnterTransition(new Fade());
+            setExitTransition(new Fade());
+            detailFragment.setReturnTransition(transition());
+        }
 
         if (twoPaneView && detailContainer != null) {
             getChildFragmentManager()
@@ -106,7 +119,8 @@ public class MasterFragment extends MVPFragment<MasterContract.View, MasterPrese
         } else {
             getActivity().getSupportFragmentManager()
                     .beginTransaction()
-                    .add(R.id.container, detailFragment, DetailFragment.FRAGMENT_ID)
+                    .addSharedElement(view, getString(R.string.reaveal_element) /*+ index*/)
+                    .replace(R.id.container, detailFragment, DetailFragment.FRAGMENT_ID)
                     .addToBackStack(DetailFragment.FRAGMENT_ID)
                     .commit();
         }
@@ -116,4 +130,23 @@ public class MasterFragment extends MVPFragment<MasterContract.View, MasterPrese
     public void addItem(@NonNull Item item) {
         itemAdapter.addItem(item);
     }
+
+
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    private Transition transition() {
+        TransitionSet transitionSet = new TransitionSet();
+        transitionSet.setDuration(600);
+        transitionSet.setInterpolator(PathInterpolatorCompat.create(0, 0.2f, 0, 1));
+        ArcMotion arcMotion = new ArcMotion();
+        arcMotion.setMaximumAngle(90f);
+        arcMotion.setMinimumHorizontalAngle(25f);
+        arcMotion.setMinimumVerticalAngle(25f);
+        ChangeBounds changeBounds = new ChangeBounds();
+        changeBounds.setPathMotion(arcMotion);
+        transitionSet.addTransition(changeBounds);
+        return transitionSet;
+    }
 }
+
+
+

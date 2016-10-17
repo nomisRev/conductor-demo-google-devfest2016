@@ -12,7 +12,7 @@ import com.bluelinelabs.conductor.RouterTransaction;
 import be.vergauwen.simon.common.di.component.ActivityComponent;
 import be.vergauwen.simon.common.di.component.DaggerActivityComponent;
 import be.vergauwen.simon.common.di.modules.ActivityModule;
-import be.vergauwen.simon.conductor.ui.controllers.MasterDetailController;
+import be.vergauwen.simon.conductor.ui.controllers.MasterViewControllerSmart;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
 
         router = Conductor.attachRouter(this, container, savedInstanceState);
         if (!router.hasRootController()) {
-            router.setRoot(RouterTransaction.with(new MasterDetailController()));
+            router.setRoot(RouterTransaction.with(new MasterViewControllerSmart()));
         }
     }
 

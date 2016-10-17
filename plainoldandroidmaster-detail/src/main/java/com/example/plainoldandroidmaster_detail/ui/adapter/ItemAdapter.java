@@ -31,6 +31,9 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemViewHolder> {
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, final int position) {
         holder.bind(items.get(position));
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            holder.itemIconView.setTransitionName(holder.actionText.getContext().getString(R.string.reaveal_element) + position);
+//        }
     }
 
     public void addItem(@NonNull final Item item) {
