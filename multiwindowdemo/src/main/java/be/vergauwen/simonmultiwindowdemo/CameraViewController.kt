@@ -3,6 +3,7 @@ package be.vergauwen.simonmultiwindowdemo
 import android.app.Activity
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,26 +21,15 @@ import java.util.concurrent.TimeUnit
 
 class CameraViewController(args: Bundle? = null) : Controller(args) {
 
-    private var cameraView: CameraView? = null
     private var frameLayout: FrameLayout? = null
     private val colors = listOf(android.R.color.black, android.R.color.white, android.R.color.holo_purple, android.R.color.holo_orange_dark)
     private var subscription: Subscription? = null
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View = container.context.UI {
-        frameLayout = frameLayout {
-            cameraView = cameraView { }
-        }
-    }.view
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View = container.context.UI { frameLayout = frameLayout() }.view
 
     override fun onAttach(view: View) {
         super.onAttach(view)
-        cameraView?.start()
-    }
-
-    override fun onActivityPaused(activity: Activity?) {
-        cameraView?.stop()
         startSwitchingColors()
-        super.onActivityPaused(activity)
     }
 
     override fun onDetach(view: View) {

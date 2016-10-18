@@ -15,8 +15,8 @@ android {
 
     defaultConfig {
         applicationId "be.vergauwen.simonmultiwindowdemo"
-        minSdkVersion versions.min_sdk
-        targetSdkVersion versions.target_sdk
+        minSdkVersion 24
+        targetSdkVersion 24
 
         versionCode buildVersionCode(versionMajor, versionMinor, versionPatch, versionBuild)
         versionName buildVersionName(versionMajor, versionMinor, versionPatch)
@@ -29,6 +29,9 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            applicationIdSuffix ".debug"
         }
     }
     sourceSets {

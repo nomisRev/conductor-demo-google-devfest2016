@@ -9,6 +9,7 @@
       <module fileurl="file://$PROJECT_DIR$/konductor/konductor.iml" filepath="$PROJECT_DIR$/konductor/konductor.iml" />
       <module fileurl="file://$PROJECT_DIR$/multiwindowdemo/multiwindowdemo.iml" filepath="$PROJECT_DIR$/multiwindowdemo/multiwindowdemo.iml" />
       <module fileurl="file://$PROJECT_DIR$/plainoldandroidmaster-detail/plainoldandroidmaster-detail.iml" filepath="$PROJECT_DIR$/plainoldandroidmaster-detail/plainoldandroidmaster-detail.iml" />
+      <module fileurl="file://$PROJECT_DIR$/traditionalsharedelement/traditionalsharedelement.iml" filepath="$PROJECT_DIR$/traditionalsharedelement/traditionalsharedelement.iml" />
     </modules>
   </component>
 </project>

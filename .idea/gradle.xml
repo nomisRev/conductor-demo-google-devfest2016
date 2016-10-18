@@ -15,6 +15,7 @@
             <option value="$PROJECT_DIR$/konductor" />
             <option value="$PROJECT_DIR$/multiwindowdemo" />
             <option value="$PROJECT_DIR$/plainoldandroidmaster-detail" />
+            <option value="$PROJECT_DIR$/traditionalsharedelement" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

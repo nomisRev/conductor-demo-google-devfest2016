@@ -1,1 +1,1 @@
-include ':konductor', ':core', ':plainoldandroidmaster-detail', ':conductor', ':cameraview', ':multiwindowdemo'
+include ':konductor', ':core', ':plainoldandroidmaster-detail', ':conductor', ':cameraview', ':multiwindowdemo', ':traditionalsharedelement'
