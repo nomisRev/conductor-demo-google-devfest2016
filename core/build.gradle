@@ -55,6 +55,14 @@ dependencies {
             libraries.hamcrest)
 
     provided(libraries.dagger,
+            libraries.anko,
+            libraries.anko_support_v4,
+            libraries.anko_appcompat,
+            libraries.anko_design,
+            libraries.anko_recycler_view,
+            libraries.conductor,
+            libraries.conductor_support,
+            libraries.conductor_rxlifecycle,
             libraries.timber,
             libraries.design_support,
             libraries.rxjava,
@@ -62,4 +70,5 @@ dependencies {
             libraries.kotlin)
 
     kapt(libraries.dagger_compiler)
+    compile 'com.bluelinelabs:conductor:2.0.3'
 }

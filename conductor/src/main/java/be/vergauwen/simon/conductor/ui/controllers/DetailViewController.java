@@ -15,31 +15,29 @@ import android.widget.TextView;
 import be.vergauwen.simon.common.ui.component.DaggerDetailComponent;
 import be.vergauwen.simon.common.ui.component.DetailComponent;
 import be.vergauwen.simon.common.ui.contract.DetailContract;
+import be.vergauwen.simon.common.ui.layout.LayoutInjector;
 import be.vergauwen.simon.common.ui.presenter.DetailPresenter;
 import be.vergauwen.simon.common.ui.widget.ItemIconView;
 import be.vergauwen.simon.conductor.MainActivity;
-import be.vergauwen.simon.conductor.R;
 import be.vergauwen.simon.conductor.core.mvp.MVPBaseController;
-import butterknife.BindView;
 
-public class ChildController extends MVPBaseController<DetailContract.View, DetailPresenter, DetailComponent> implements DetailContract.View {
+public class DetailViewController extends MVPBaseController<DetailContract.View, DetailPresenter, DetailComponent> implements DetailContract.View {
 
-    private final static String KEY_TITLE = "ChildController.title";
-    private final static String KEY_COLOR = "ChildController.color";
-    private final static String KEY_DRAW_RES = "ChildController.drawableResId";
+    private final static String KEY_TITLE = "DetailViewController.title";
+    private final static String KEY_COLOR = "DetailViewController.color";
+    private final static String KEY_DRAW_RES = "DetailViewController.drawableResId";
 
-    @BindView(R.id.background)
     LinearLayout background;
-    @BindView(R.id.action_icon)
     ItemIconView itemIconView;
-    @BindView(R.id.action_text)
     TextView actionText;
 
-    public ChildController(Bundle args) {
+    private LayoutInjector<DetailViewController> layoutInjector = new DetailViewLayout();
+
+    public DetailViewController(Bundle args) {
         super(args);
     }
 
-    public ChildController(@NonNull String title, @ColorRes int iconColorResId, @DrawableRes int drawableResId) {
+    public DetailViewController(@NonNull String title, @ColorRes int iconColorResId, @DrawableRes int drawableResId) {
         this(buildBundle(title, iconColorResId, drawableResId));
     }
 
@@ -50,12 +48,12 @@ public class ChildController extends MVPBaseController<DetailContract.View, Deta
 
     @Override
     protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        return inflater.inflate(R.layout.child_controller, container, false);
+        return layoutInjector.injectLayout(this);
     }
 
     @Override
-    protected void onViewBound(@NonNull View view) {
-        super.onViewBound(view);
+    protected void onViewCreated(@NonNull View view) {
+        super.onViewCreated(view);
         background.setBackgroundColor(ContextCompat.getColor(getActivity(), getArgs().getInt(KEY_COLOR)));
         itemIconView.setColorId(getArgs().getInt(KEY_COLOR));
         itemIconView.setIcon(ContextCompat.getDrawable(getActivity(), getArgs().getInt(KEY_DRAW_RES)));

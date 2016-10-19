@@ -14,8 +14,6 @@ import com.bluelinelabs.conductor.rxlifecycle.RxController;
 
 import be.vergauwen.simon.common.mvp.MVPContract;
 import be.vergauwen.simon.conductor.ConductorApp;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
 import icepick.Icepick;
 
 public abstract class MVPBaseController<V extends MVPContract.View, P extends MVPContract.Presenter<V>, C extends MVPContract.Component<V,P>>
@@ -25,7 +23,6 @@ public abstract class MVPBaseController<V extends MVPContract.View, P extends MV
     private C component;
     protected ActionBar supportActionBar;
     protected P presenter;
-    private Unbinder unbinder;
 
     abstract protected C createComponent();
 
@@ -44,19 +41,11 @@ public abstract class MVPBaseController<V extends MVPContract.View, P extends MV
         supportActionBar = component.getActionBarProvider().getSupportActionBar();
 
         View view = inflateView(inflater, container);
-        unbinder = ButterKnife.bind(this, view);
-        onViewBound(view);
+        onViewCreated(view);
         return view;
     }
 
-    protected void onViewBound(@NonNull View view) { }
-
-    @Override
-    protected void onDestroyView(View view) {
-        super.onDestroyView(view);
-        unbinder.unbind();
-        unbinder = null;
-    }
+    protected void onViewCreated(@NonNull View view) { }
 
     @Override
     protected void onAttach(@NonNull View view) {

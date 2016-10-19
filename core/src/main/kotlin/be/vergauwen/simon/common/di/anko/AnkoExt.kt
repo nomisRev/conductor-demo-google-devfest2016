@@ -1,5 +1,6 @@
-package be.vergauwen.simon.konductor.core.anko
+package be.vergauwen.simon.common.di.anko
 
+import android.R
 import android.content.Context
 import android.content.Intent
 import android.graphics.Point
@@ -12,10 +13,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewManager
 import android.view.WindowManager
-import be.vergauwen.simon.konductor.R
 import be.vergauwen.simon.common.ui.widget.ItemIconView
 import com.bluelinelabs.conductor.ChangeHandlerFrameLayout
 import org.jetbrains.anko.custom.ankoView
+
 
 fun ViewManager.changeHandlerFrameLayout(theme: Int = 0) = changeHandlerFrameLayout(theme) {}
 inline fun ViewManager.changeHandlerFrameLayout(theme: Int = 0, init: ChangeHandlerFrameLayout.() -> Unit) = ankoView(::ChangeHandlerFrameLayout, theme, init)
@@ -36,7 +37,6 @@ fun View.actionBarSize(): Int {
     }
     return 0
 }
-
 
 fun ViewGroup.setSelectableItemBackground() {
     val typedArray = context.obtainStyledAttributes(intArrayOf(R.attr.selectableItemBackground))

@@ -2,7 +2,6 @@ package be.vergauwen.simon.conductor;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 
 import com.bluelinelabs.conductor.ChangeHandlerFrameLayout;
 import com.bluelinelabs.conductor.Conductor;
@@ -12,32 +11,26 @@ import com.bluelinelabs.conductor.RouterTransaction;
 import be.vergauwen.simon.common.di.component.ActivityComponent;
 import be.vergauwen.simon.common.di.component.DaggerActivityComponent;
 import be.vergauwen.simon.common.di.modules.ActivityModule;
-import be.vergauwen.simon.conductor.ui.controllers.MasterViewControllerSmart;
-import butterknife.BindView;
-import butterknife.ButterKnife;
+import be.vergauwen.simon.common.ui.layout.LayoutInjector;
+import be.vergauwen.simon.conductor.ui.controllers.MasterViewControllerMVP;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.container)
     ChangeHandlerFrameLayout container;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
 
     public ActivityComponent component = DaggerActivityComponent.builder().activityModule(new ActivityModule(this)).build();
 
+    private LayoutInjector<MainActivity> layoutInjector = new MainLayout();
     private Router router;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-
-        setSupportActionBar(toolbar);
+        setContentView(layoutInjector.injectLayout(this));
 
         router = Conductor.attachRouter(this, container, savedInstanceState);
         if (!router.hasRootController()) {
-            router.setRoot(RouterTransaction.with(new MasterViewControllerSmart()));
+            router.setRoot(RouterTransaction.with(new MasterViewControllerMVP()));
         }
     }
 

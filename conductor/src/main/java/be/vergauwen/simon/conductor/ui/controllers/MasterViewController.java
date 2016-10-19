@@ -23,7 +23,7 @@ import be.vergauwen.simon.common.di.model.Item;
 import be.vergauwen.simon.common.ui.widget.util.OnItemClickListener;
 import be.vergauwen.simon.common.ui.widget.util.RecyclerViewExtKt;
 import be.vergauwen.simon.conductor.R;
-import be.vergauwen.simon.conductor.core.changehandlers.CircularRevealChangeHandlerCompat;
+import be.vergauwen.simon.common.di.changehandlers.CircularRevealChangeHandlerCompat;
 import be.vergauwen.simon.conductor.ui.adapter.ItemAdapter;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -90,7 +90,7 @@ public class MasterViewController extends Controller {
         Item item = itemAdapter.getItem(index);
         if (item != null) {
             showDetail(
-                    new ChildController(item.getName(), item.getItemColorId(), item.getDrawableResId()),
+                    new DetailViewController(item.getName(), item.getItemColorId(), item.getDrawableResId()),
                     getCircularRevealHandler(index)
             );
         }

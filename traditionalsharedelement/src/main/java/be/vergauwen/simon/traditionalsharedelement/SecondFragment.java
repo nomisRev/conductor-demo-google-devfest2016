@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 
 public class SecondFragment extends Fragment {
 
+    public static final String FRAGMENT_TAG = "secondFragment";
+
     public static SecondFragment newInstance() {
         SecondFragment fragment = new SecondFragment();
         Bundle args = new Bundle();

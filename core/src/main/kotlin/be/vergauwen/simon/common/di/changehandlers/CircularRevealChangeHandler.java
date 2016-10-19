@@ -1,4 +1,4 @@
-package be.vergauwen.simon.conductor.core.changehandlers;
+package be.vergauwen.simon.common.di.changehandlers;
 
 import android.animation.Animator;
 import android.annotation.TargetApi;
