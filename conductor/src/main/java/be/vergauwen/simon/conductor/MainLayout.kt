@@ -14,21 +14,20 @@ import org.jetbrains.anko.design.coordinatorLayout
 import org.jetbrains.anko.matchParent
 
 class MainLayout : LayoutInjector<MainActivity> {
-    override fun injectLayout(detailView: MainActivity): View {
-        return detailView.UI {
+    override fun injectLayout(mainView: MainActivity): View {
+        return mainView.UI {
             coordinatorLayout {
                 fitsSystemWindows = true
 
                 appBarLayout {
                     toolbar {
-                        popupTheme = R.style.AppTheme_PopupOverlay
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) elevation = 4f
                         setTitleTextColor(color(android.R.color.white))
-                        detailView.setSupportActionBar(this)
+                        mainView.setSupportActionBar(this)
                     }.lparams(width = matchParent, height = actionBarSize())
                 }.lparams(width = matchParent)
 
-                detailView.container = changeHandlerFrameLayout {
+                mainView.container = changeHandlerFrameLayout {
                 }.lparams(width = matchParent, height = matchParent) {
                     behavior = AppBarLayout.ScrollingViewBehavior()
                 }

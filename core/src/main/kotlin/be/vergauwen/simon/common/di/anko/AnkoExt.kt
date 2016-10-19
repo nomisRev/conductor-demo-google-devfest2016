@@ -52,7 +52,9 @@ fun ViewGroup.setMinimumListHeight() {
     }
 }
 
-fun <T : View> T.widthProcent(procent: Int): Int = getAppUseableScreenSize().x.toFloat().times(procent.toFloat() / 100).toInt()
+fun <T : View> T.widthProcent(procent: Int): Int =
+        getAppUseableScreenSize().x.toFloat()
+                .times(procent.toFloat() / 100).toInt()
 
 fun <T : View> T.heightProcent(procent: Int): Int = getAppUseableScreenSize().y.toFloat().times(procent.toFloat() / 100).toInt()
 

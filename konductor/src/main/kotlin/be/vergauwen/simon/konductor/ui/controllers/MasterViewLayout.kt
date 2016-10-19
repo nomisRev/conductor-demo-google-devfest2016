@@ -11,21 +11,27 @@ import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 
 class MasterViewLayout : LayoutInjector<MasterViewController> {
-    override fun injectLayout(detailView: MasterViewController): View {
-        return detailView.activity.UI {
-            detailView.background = linearLayout {
+    override fun injectLayout(masterView: MasterViewController): View {
+        return masterView.activity.UI {
+            masterView.background = linearLayout {
                 configuration(orientation = Orientation.PORTRAIT) {
-                    detailView.recyclerView = recyclerView {
-                        init(detailView)
+                    masterView.recyclerView = recyclerView {
+                        init(masterView)
                     }.lparams(width = matchParent, height = matchParent)
                 }
 
                 configuration(orientation = Orientation.LANDSCAPE) {
-                    detailView.recyclerView = recyclerView {
-                        init(detailView)
+                    masterView.recyclerView = recyclerView {
+                        init(masterView)
+                    }.lparams(width = matchParent, height = matchParent)
+                }
+
+                configuration(orientation = Orientation.LANDSCAPE, smallestWidth = 700) {
+                    masterView.recyclerView = recyclerView {
+                        init(masterView)
                     }.lparams(width = widthProcent(50), height = matchParent)
 
-                    detailView.detailContainer = frameLayout {
+                    masterView.detailContainer = frameLayout {
 
                     }.lparams(width = matchParent, height = matchParent)
                 }

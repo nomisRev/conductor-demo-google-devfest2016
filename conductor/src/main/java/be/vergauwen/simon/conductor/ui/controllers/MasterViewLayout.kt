@@ -3,27 +3,26 @@ package be.vergauwen.simon.conductor.ui.controllers
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
-import be.vergauwen.simon.common.di.anko.widthProcent
 import be.vergauwen.simon.common.ui.layout.LayoutInjector
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 
 class MasterViewLayout : LayoutInjector<MasterViewControllerMVP> {
-    override fun injectLayout(detailView: MasterViewControllerMVP): View {
-        return detailView.activity.UI {
-            detailView.container = linearLayout {
+    override fun injectLayout(masterView: MasterViewControllerMVP): View {
+        return masterView.activity.UI {
+            masterView.container = linearLayout {
                 configuration(orientation = Orientation.PORTRAIT) {
-                    detailView.recyclerView = recyclerView {
+                    masterView.recyclerView = recyclerView {
                         init()
                     }.lparams(width = matchParent, height = matchParent)
                 }
 
                 configuration(orientation = Orientation.LANDSCAPE) {
-                    detailView.recyclerView = recyclerView {
+                    masterView.recyclerView = recyclerView {
                         init()
-                    }.lparams(width = widthProcent(50), height = matchParent)
+                    }.lparams(width = dip(275), height = matchParent)
 
-                    detailView.detailContainer = frameLayout {
+                    masterView.detailContainer = frameLayout {
 
                     }.lparams(width = matchParent, height = matchParent)
                 }

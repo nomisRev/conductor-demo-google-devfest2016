@@ -4,5 +4,5 @@ import android.view.View
 
 
 interface LayoutInjector<in T> {
-    fun injectLayout(detailView: T) : View
+    fun injectLayout(t: T) : View
 }
