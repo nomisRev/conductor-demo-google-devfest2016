@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#263239</color>
+    <color name="colorPrimaryDark">#21272c</color>
+    <color name="colorAccent">#1976d2</color>
+
+    <color name="email">#E84C3D</color>
+    <color name="phone">#27AE61</color>
+    <color name="url">#F1C40F</color>
+    <color name="twitter">#3497DA</color>
+
+</resources>
