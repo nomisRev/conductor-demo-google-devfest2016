@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.transition.Fade;
 import android.transition.Transition;
 import android.transition.TransitionInflater;
 import android.view.LayoutInflater;
@@ -44,28 +42,19 @@ public class FirstFragment extends Fragment {
             public void onClick(View v) {
 
                 SecondFragment secondFragment = SecondFragment.newInstance();
-                FragmentTransaction fragmentTransaction = getActivity()
-                        .getSupportFragmentManager()
-                        .beginTransaction();
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    Transition transition = TransitionInflater.from(getContext())
-                            .inflateTransition(R.transition.arc_shared);
+                    Transition transition = TransitionInflater.from(getContext()).inflateTransition(R.transition.arc_shared);
                     secondFragment.setSharedElementEnterTransition(transition);
-                    secondFragment.setEnterTransition(new Fade());
+                    //secondFragment.setEnterTransition(new Fade());
                     secondFragment.setReturnTransition(transition);
-                    setExitTransition(new Fade());
-                    fragmentTransaction.addSharedElement(floatingActionButton,
-                            getString(R.string.fab_transition_name));
-                } else {
-                    fragmentTransaction
-                            .setCustomAnimations(android.R.anim.slide_in_left,
-                                    android.R.anim.slide_out_right,
-                                    android.R.anim.slide_in_left,
-                                    android.R.anim.slide_out_right);
+                    //setExitTransition(new Fade());
                 }
-                fragmentTransaction
+
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .addSharedElement(floatingActionButton, "transition_dot")
                         .replace(R.id.content_frame, secondFragment)
-                        .addToBackStack(SecondFragment.FRAGMENT_TAG)
+                        .addToBackStack(null)
                         .commit();
             }
         });

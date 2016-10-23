@@ -15,7 +15,6 @@ import android.widget.TextView;
 import be.vergauwen.simon.common.ui.component.DaggerDetailComponent;
 import be.vergauwen.simon.common.ui.component.DetailComponent;
 import be.vergauwen.simon.common.ui.contract.DetailContract;
-import be.vergauwen.simon.common.ui.layout.LayoutInjector;
 import be.vergauwen.simon.common.ui.presenter.DetailPresenter;
 import be.vergauwen.simon.common.ui.widget.ItemIconView;
 import be.vergauwen.simon.conductor.MainActivity;
@@ -31,7 +30,7 @@ public class DetailViewController extends MVPBaseController<DetailContract.View,
     ItemIconView itemIconView;
     TextView actionText;
 
-    private LayoutInjector<DetailViewController> layoutInjector = new DetailViewLayout();
+    private LayoutBinder<DetailViewController> viewBinder = new DetailViewLayout();
 
     public DetailViewController(Bundle args) {
         super(args);
@@ -48,7 +47,7 @@ public class DetailViewController extends MVPBaseController<DetailContract.View,
 
     @Override
     protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        return layoutInjector.injectLayout(this);
+        return viewBinder.bind(this);
     }
 
     @Override
@@ -58,6 +57,12 @@ public class DetailViewController extends MVPBaseController<DetailContract.View,
         itemIconView.setColorId(getArgs().getInt(KEY_COLOR));
         itemIconView.setIcon(ContextCompat.getDrawable(getActivity(), getArgs().getInt(KEY_DRAW_RES)));
         actionText.setText(getArgs().getString(KEY_TITLE));
+    }
+
+    @Override
+    protected void onDestroyView(View view) {
+        super.onDestroyView(view);
+        viewBinder.unbind(this);
     }
 
     private static Bundle buildBundle(@NonNull String title, @ColorRes int iconColorResId, @DrawableRes int drawableResId) {

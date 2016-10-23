@@ -14,18 +14,17 @@ import com.bluelinelabs.conductor.RouterTransaction;
 
 import org.jetbrains.annotations.NotNull;
 
+import be.vergauwen.simon.common.di.changehandlers.CircularRevealChangeHandlerCompat;
 import be.vergauwen.simon.common.di.model.Item;
 import be.vergauwen.simon.common.di.modules.DataModule;
 import be.vergauwen.simon.common.ui.component.DaggerMasterComponent;
 import be.vergauwen.simon.common.ui.component.MasterComponent;
 import be.vergauwen.simon.common.ui.contract.MasterContract;
-import be.vergauwen.simon.common.ui.layout.LayoutInjector;
 import be.vergauwen.simon.common.ui.presenter.MasterPresenter;
 import be.vergauwen.simon.common.ui.widget.util.OnItemClickListener;
 import be.vergauwen.simon.common.ui.widget.util.RecyclerViewExtKt;
 import be.vergauwen.simon.conductor.MainActivity;
 import be.vergauwen.simon.conductor.R;
-import be.vergauwen.simon.common.di.changehandlers.CircularRevealChangeHandlerCompat;
 import be.vergauwen.simon.conductor.core.mvp.MVPBaseController;
 import be.vergauwen.simon.conductor.ui.adapter.ItemAdapter;
 import icepick.State;
@@ -45,11 +44,11 @@ public class MasterViewControllerMVP extends MVPBaseController<MasterContract.Vi
     int selectedIndex = 0;
     private boolean twoPaneView;
     private ItemAdapter itemAdapter;
-    private LayoutInjector<MasterViewControllerMVP> layoutInjector = new MasterViewLayout();
+    private LayoutBinder<MasterViewControllerMVP> viewBinder = new MasterViewLayout();
 
     @Override
     protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {
-        return layoutInjector.injectLayout(this);
+        return viewBinder.bind(this);
     }
 
     @Override
@@ -68,6 +67,12 @@ public class MasterViewControllerMVP extends MVPBaseController<MasterContract.Vi
         if (twoPaneView) {
             onRowSelected(selectedIndex);
         }
+    }
+
+    @Override
+    protected void onDestroyView(View view) {
+        super.onDestroyView(view);
+        viewBinder.unbind(this);
     }
 
     @Override
