@@ -6,15 +6,15 @@ import android.view.View
 import be.vergauwen.simon.common.di.anko.actionBarSize
 import be.vergauwen.simon.common.di.anko.changeHandlerFrameLayout
 import be.vergauwen.simon.common.di.anko.color
-import be.vergauwen.simon.common.ui.layout.LayoutInjector
+import be.vergauwen.simon.common.ui.layout.ViewBinder
 import org.jetbrains.anko.UI
 import org.jetbrains.anko.appcompat.v7.toolbar
 import org.jetbrains.anko.design.appBarLayout
 import org.jetbrains.anko.design.coordinatorLayout
 import org.jetbrains.anko.matchParent
 
-class MainLayout : LayoutInjector<MainActivity> {
-    override fun injectLayout(mainView: MainActivity): View {
+class MainLayout : ViewBinder<MainActivity> {
+    override fun bind(mainView: MainActivity): View {
         return mainView.UI {
             coordinatorLayout {
                 fitsSystemWindows = true
@@ -33,5 +33,9 @@ class MainLayout : LayoutInjector<MainActivity> {
                 }
             }
         }.view
+    }
+
+    override fun unbind(mainView: MainActivity) {
+        mainView.container = null
     }
 }

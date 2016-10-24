@@ -19,7 +19,7 @@ class DetailViewController(args: Bundle) : MVPBaseController<DetailContract.View
         val KEY_DRAW_RES = "ChildController.drawableResId"
     }
 
-    private val layoutInjector = DetailViewLayout()
+    private val viewBinder = DetailViewLayout()
     override val component: DetailComponent
         get() = DaggerDetailComponent.builder().activityComponent((activity as MainActivity).component).build()
 
@@ -29,5 +29,5 @@ class DetailViewController(args: Bundle) : MVPBaseController<DetailContract.View
         putInt(KEY_DRAW_RES, drawableResId)
     }))
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View = layoutInjector.injectLayout(this)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View = viewBinder.bind(this)
 }

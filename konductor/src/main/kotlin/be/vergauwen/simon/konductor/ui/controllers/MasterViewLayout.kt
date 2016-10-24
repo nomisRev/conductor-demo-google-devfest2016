@@ -4,14 +4,15 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import be.vergauwen.simon.common.di.anko.widthProcent
-import be.vergauwen.simon.common.ui.layout.LayoutInjector
+import be.vergauwen.simon.common.ui.layout.ViewBinder
 import be.vergauwen.simon.common.ui.widget.util.onItemClick
 import be.vergauwen.simon.konductor.ui.adapter.ItemAdapter
 import org.jetbrains.anko.*
 import org.jetbrains.anko.recyclerview.v7.recyclerView
 
-class MasterViewLayout : LayoutInjector<MasterViewController> {
-    override fun injectLayout(masterView: MasterViewController): View {
+class MasterViewLayout : ViewBinder<MasterViewController> {
+
+    override fun bind(masterView: MasterViewController): View {
         return masterView.activity.UI {
             masterView.background = linearLayout {
                 configuration(orientation = Orientation.PORTRAIT) {
@@ -37,6 +38,12 @@ class MasterViewLayout : LayoutInjector<MasterViewController> {
                 }
             }
         }.view
+    }
+
+    override fun unbind(masterView: MasterViewController) {
+        masterView.background = null
+        masterView.recyclerView = null
+        masterView.detailContainer = null
     }
 
     private fun RecyclerView.init(t: MasterViewController) {

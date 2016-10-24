@@ -15,6 +15,7 @@ import android.widget.TextView;
 import be.vergauwen.simon.common.ui.component.DaggerDetailComponent;
 import be.vergauwen.simon.common.ui.component.DetailComponent;
 import be.vergauwen.simon.common.ui.contract.DetailContract;
+import be.vergauwen.simon.common.ui.layout.ViewBinder;
 import be.vergauwen.simon.common.ui.presenter.DetailPresenter;
 import be.vergauwen.simon.common.ui.widget.ItemIconView;
 import be.vergauwen.simon.conductor.MainActivity;
@@ -30,7 +31,7 @@ public class DetailViewController extends MVPBaseController<DetailContract.View,
     ItemIconView itemIconView;
     TextView actionText;
 
-    private LayoutBinder<DetailViewController> viewBinder = new DetailViewLayout();
+    private ViewBinder<DetailViewController> viewBinder = new DetailViewLayout();
 
     public DetailViewController(Bundle args) {
         super(args);

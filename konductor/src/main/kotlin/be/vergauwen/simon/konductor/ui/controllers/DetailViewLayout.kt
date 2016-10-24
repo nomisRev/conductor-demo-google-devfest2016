@@ -5,15 +5,15 @@ import android.view.View
 import be.vergauwen.simon.common.di.anko.color
 import be.vergauwen.simon.common.di.anko.drawable
 import be.vergauwen.simon.common.di.anko.itemIconView
-import be.vergauwen.simon.common.ui.layout.LayoutInjector
+import be.vergauwen.simon.common.ui.layout.ViewBinder
 import be.vergauwen.simon.konductor.R
 import be.vergauwen.simon.konductor.ui.controllers.DetailViewController.Companion.KEY_COLOR
 import be.vergauwen.simon.konductor.ui.controllers.DetailViewController.Companion.KEY_DRAW_RES
 import be.vergauwen.simon.konductor.ui.controllers.DetailViewController.Companion.KEY_TITLE
 import org.jetbrains.anko.*
 
-class DetailViewLayout : LayoutInjector<DetailViewController> {
-    override fun injectLayout(detailView: DetailViewController): View {
+class DetailViewLayout : ViewBinder<DetailViewController> {
+    override fun bind(detailView: DetailViewController): View {
         return detailView.activity.UI {
           verticalLayout {
               backgroundColor = color(detailView.args.getInt(KEY_COLOR))
@@ -37,4 +37,6 @@ class DetailViewLayout : LayoutInjector<DetailViewController> {
             }
         }.view
     }
+
+    override fun unbind(detailView: DetailViewController) { }
 }

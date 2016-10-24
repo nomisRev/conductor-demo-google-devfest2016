@@ -11,7 +11,7 @@ import com.bluelinelabs.conductor.RouterTransaction;
 import be.vergauwen.simon.common.di.component.ActivityComponent;
 import be.vergauwen.simon.common.di.component.DaggerActivityComponent;
 import be.vergauwen.simon.common.di.modules.ActivityModule;
-import be.vergauwen.simon.common.ui.layout.LayoutInjector;
+import be.vergauwen.simon.common.ui.layout.ViewBinder;
 import be.vergauwen.simon.conductor.ui.controllers.MasterViewControllerMVP;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,13 +20,13 @@ public class MainActivity extends AppCompatActivity {
 
     public ActivityComponent component = DaggerActivityComponent.builder().activityModule(new ActivityModule(this)).build();
 
-    private LayoutInjector<MainActivity> layoutInjector = new MainLayout();
+    private ViewBinder<MainActivity> viewBinder = new MainLayout();
     private Router router;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(layoutInjector.injectLayout(this));
+        setContentView(viewBinder.bind(this));
 
         router = Conductor.attachRouter(this, container, savedInstanceState);
         if (!router.hasRootController()) {

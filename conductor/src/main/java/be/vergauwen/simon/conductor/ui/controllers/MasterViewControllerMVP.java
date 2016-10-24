@@ -20,6 +20,7 @@ import be.vergauwen.simon.common.di.modules.DataModule;
 import be.vergauwen.simon.common.ui.component.DaggerMasterComponent;
 import be.vergauwen.simon.common.ui.component.MasterComponent;
 import be.vergauwen.simon.common.ui.contract.MasterContract;
+import be.vergauwen.simon.common.ui.layout.ViewBinder;
 import be.vergauwen.simon.common.ui.presenter.MasterPresenter;
 import be.vergauwen.simon.common.ui.widget.util.OnItemClickListener;
 import be.vergauwen.simon.common.ui.widget.util.RecyclerViewExtKt;
@@ -44,7 +45,7 @@ public class MasterViewControllerMVP extends MVPBaseController<MasterContract.Vi
     int selectedIndex = 0;
     private boolean twoPaneView;
     private ItemAdapter itemAdapter;
-    private LayoutBinder<MasterViewControllerMVP> viewBinder = new MasterViewLayout();
+    private ViewBinder<MasterViewControllerMVP> viewBinder = new MasterViewLayout();
 
     @Override
     protected View inflateView(@NonNull LayoutInflater inflater, @NonNull ViewGroup container) {

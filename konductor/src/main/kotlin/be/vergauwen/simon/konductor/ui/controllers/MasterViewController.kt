@@ -28,12 +28,17 @@ class MasterViewController : MVPBaseController<MasterContract.View, MasterPresen
     internal var detailContainer: ViewGroup? = null
     internal var background: View? = null
     internal var itemAdapter = ItemAdapter()
-    private val layoutInject = MasterViewLayout()
+    val viewBinder = MasterViewLayout()
 
     override val component: MasterComponent
         get() = DaggerMasterComponent.builder().activityComponent((activity as MainActivity).component).dataModule(DataModule()).build()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View = layoutInject.injectLayout(this)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup): View = viewBinder.bind(this)
+
+    override fun onDestroyView(view: View?) {
+        super.onDestroyView(view)
+        viewBinder.unbind(this)
+    }
 
     override fun onAttach(view: View) {
         super.onAttach(view)

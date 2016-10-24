@@ -35,6 +35,9 @@ android {
         main.java.srcDirs += 'src/main/api14'
         main.java.srcDirs += 'src/main/api21'
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 dependencies {
