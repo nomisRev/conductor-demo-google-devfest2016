@@ -8,11 +8,9 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/cameraview" />
             <option value="$PROJECT_DIR$/conductor" />
             <option value="$PROJECT_DIR$/core" />
             <option value="$PROJECT_DIR$/konductor" />
-            <option value="$PROJECT_DIR$/multiwindowdemo" />
             <option value="$PROJECT_DIR$/plainoldandroidmaster-detail" />
             <option value="$PROJECT_DIR$/traditionalsharedelement" />
           </set>
