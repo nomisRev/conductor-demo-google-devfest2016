@@ -1,5 +1,3 @@
-https://speakerdeck.com/nomisrev/view-based-apps-with-conductor
-
 # View-based apps with Conductor
 
 All common code like interfaces, presenters and DI setup is in the core module.
@@ -12,3 +10,5 @@ All common code like interfaces, presenters and DI setup is in the core module.
  * plainoldandroidmaster-detail, traditionalsharedelement are modules only for presentation purposes. 
  
  Questions may be placed in Issues, tips or feedback is also always welcome.
+
+https://speakerdeck.com/nomisrev/view-based-apps-with-conductor
